@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+
+    <script>
+        const myVideo=document.createElement("video");
+        navigator.mediaDevices.getUserMedia({video:true}).then(function (rawData){
+            myVideo.srcObject = rawData;
+            myVideo.play();
+            myVideo.onloadeddata = function () {
+                myCanvas.width = myVideo.videoWidth;
+                myCanvas.height = myVideo.videoHeight;
+                new Effect(myCanvas, myVideo); // Changed 'MyVideo' to 'myVideo'
+            }
+        }).catch(function (err) {
+            alert(err)
+        });
+    </script>
+
+    <script src="effect.js"></script>
+    <script src="utils.js"></script>
+</body>
+</html>
