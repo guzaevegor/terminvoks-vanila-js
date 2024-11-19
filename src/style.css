@@ -1,7 +1,98 @@
-#myCanvas{
-    width:70%;
+/* Общий сброс стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-body{
-    margin:0;
-    background-color: black ;
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Заголовок и слоган */
+.header {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.title {
+    font-size: 2.5rem;
+    color: #00ff00;
+}
+
+.slogan {
+    font-size: 1.2rem;
+    color: #00ccff;
+    margin-top: 5px;
+}
+
+/* Основной блок с видео */
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    height: 80%;
+}
+
+#myCanvas {
+    width: 70%;
+    height: auto; /* Автоадаптация по высоте */
+    border: 2px solid #00ccff;
+    background-color: #000;
+}
+
+/* Кнопка настроек */
+.settings-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #00ccff;
+    border: none;
+    color: black;
+    padding: 10px 10px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.settings-button:hover {
+    transform: rotate(90deg);
+}
+
+/* Панель настроек (шторка) */
+.settings-panel {
+    position: absolute;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: #222;
+    color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 0.9s;
+    padding: 20px;
+}
+
+.settings-panel.open {
+    right: 0;
+}
+
+.settings-panel h2 {
+    margin-bottom: 10px;
+    color: #00ff00;
+}
+
+.settings-panel p {
+    font-size: 1rem;
+    line-height: 1.5;
 }
