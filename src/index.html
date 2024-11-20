@@ -17,10 +17,19 @@
 </div>
 
 <button class="settings-button" onclick="toggleSettings()">⚙️</button>
+<button class="mute-button" onclick="toggleMute()">🔊</button>
+
 
 <div class="settings-panel" id="settingsPanel">
     <h2>Settings</h2>
     <p>Adjust your preferences:</p>
+    <label for="greenThreshold">Threshold for green:</label>
+    <input type="range" id="greenThreshold" min="0" max="300" value="230" oninput="updateGreenThreshold(this.value)">
+    <span id="greenThresholdValue">230</span>
+    <br>
+    <label for="blueThreshold">Threshold for blue:</label>
+    <input type="range" id="blueThreshold" min="0" max="300" value="230" oninput="updateBlueThreshold(this.value)">
+    <span id="blueThresholdValue">230</span>
 </div>
 
 <script>
@@ -31,7 +40,7 @@
         myVideo.onloadeddata = function () {
             myCanvas.width = myVideo.videoWidth;
             myCanvas.height = myVideo.videoHeight;
-            new Effect(myCanvas, myVideo);
+            window.effect = new Effect(myCanvas, myVideo); // Создаем глобальный экземпляр для доступа к методам
         };
     }).catch(function (err) {
         alert(err);
@@ -51,6 +60,21 @@
             panel.classList.remove("open");
         }
     });
+
+    // Функции обновления значений порогов
+    function updateGreenThreshold(value) {
+        document.getElementById("greenThresholdValue").textContent = value;
+        if (window.effect) {
+            window.effect.setGreenComponent(parseInt(value));
+        }
+    }
+
+    function updateBlueThreshold(value) {
+        document.getElementById("blueThresholdValue").textContent = value;
+        if (window.effect) {
+            window.effect.setBlueComponent(parseInt(value));
+        }
+    }
 </script>
 
 <script src="effect.js"></script>

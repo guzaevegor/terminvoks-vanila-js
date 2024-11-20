@@ -23,16 +23,62 @@ class Effect {
         this.gainNode.gain.value = 0; // Громкость по умолчанию
         this.osc.start();
 
+        // Инициализация параметров конфигурации
+        this.threshold = 160;
+        this.g_freq = 230; // Зеленый компонент для частоты
+        this.b_volume = 230; // Синий компонент для громкости
+
+        this.isMuted = false; // Флаг состояния мута
         this.#animate();
     }
 
+    setThreshold(newThreshold) {
+        this.threshold = newThreshold;
+    }
+
+    setGreenComponent(value) {
+        this.g_freq = value; // Установить новый зеленый компонент
+    }
+
+    setBlueComponent(value) {
+        this.b_volume = value; // Установить новый синий компонент
+    }
+
+    mute() {
+        this.isMuted = true;
+        this.gainNode.gain.value = 0; // Отключить громкость
+    }
+
+    unmute() {
+        this.isMuted = false;
+        this.gainNode.gain.value = 1; // Включить громкость на стандартное значение
+    }
+
+    toggleMute() {
+        if (this.isMuted) {
+            this.unmute();
+        } else {
+            this.mute();
+        }
+        const muteButton = document.querySelector(".mute-button");
+        if (muteButton) {
+            muteButton.textContent = this.isMuted ? "🔊" : "🔇";
+        }
+    }
+
     #animate() {
-        const { ctx, canvas, video } = this;
+        const { ctx, canvas, video, threshold, g_freq, b_volume } = this;
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
-        const locs_freq = getLocationsWithColor(imgData, { r: 0, g: 230, b: 0 }); // Частота
-        const locs_volume = getLocationsWithColor(imgData, { r: 0, g: 0, b: 230 }); // Громкость
+        const locs_freq = getLocationsWithColor(imgData, { r: 0, g: g_freq, b: 0 }, threshold); // Частота
+        const locs_volume = getLocationsWithColor(imgData, { r: 0, g: 0, b: b_volume }, threshold); // Громкость
+
+        // Отображение зеленых точек
+        ctx.fillStyle = "green";
+        locs_freq.forEach(loc => {
+            ctx.fillRect(loc.x, loc.y, 1, 1);
+        });
 
         // Управление частотой
         if (locs_freq.length > 0) {
@@ -46,7 +92,7 @@ class Effect {
             this.filterNode.frequency.value = filterCutoff;
 
             ctx.beginPath();
-            ctx.fillStyle = "red";
+            ctx.fillStyle = "green";
             ctx.arc(center_freq.x, center_freq.y, 5, 0, 2 * Math.PI);
             ctx.fill();
             ctx.beginPath();
@@ -59,15 +105,23 @@ class Effect {
             this.osc.frequency.value = 0;
         }
 
+        // Отображение синих точек
+        ctx.fillStyle = "blue";
+        locs_volume.forEach(loc => {
+            ctx.fillRect(loc.x, loc.y, 1, 1);
+        });
+
         // Управление громкостью
         if (locs_volume.length > 0) {
             const center_volume = average(locs_volume);
             const p_volume = 1 - center_volume.y / canvas.height;
             const volume = Math.min(Math.max(p_volume, 0), 1);
-            this.gainNode.gain.value = volume;
+            if (!this.isMuted) {
+                this.gainNode.gain.value = volume; // Устанавливаем громкость, только если не мут
+            }
 
             ctx.beginPath();
-            ctx.fillStyle = "red";
+            ctx.fillStyle = "blue";
             ctx.arc(center_volume.x, center_volume.y, 5, 0, 2 * Math.PI);
             ctx.fill();
             ctx.beginPath();

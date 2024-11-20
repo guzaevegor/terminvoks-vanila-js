@@ -96,3 +96,31 @@ body {
     font-size: 1rem;
     line-height: 1.5;
 }
+
+#threshold {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#thresholdValue {
+    color: #00ff00;
+    font-weight: bold;
+}
+
+.mute-button {
+    position: absolute;
+    top: 20px;
+    right: 70px; /* Смещена рядом с кнопкой настроек */
+    background-color: #00ccff;
+    border: none;
+    color: black;
+    padding: 10px 10px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.mute-button:hover {
+    transform: scale(1.1);
+}
