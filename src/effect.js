@@ -28,7 +28,9 @@ class Effect {
         this.g_freq = 230; // Зеленый компонент для частоты
         this.b_volume = 230; // Синий компонент для громкости
 
-        this.isMuted = false; // Флаг состояния мута
+        this.isMuted = true; // Флаг состояния мута
+        this.isMirrored = false; // Флаг состояния зеркальности
+
         this.#animate();
     }
 
@@ -66,9 +68,20 @@ class Effect {
         }
     }
 
+    setMirror(isMirrored) {
+        this.isMirrored = isMirrored;
+    }
+
     #animate() {
-        const { ctx, canvas, video, threshold, g_freq, b_volume } = this;
+        const { ctx, canvas, video, threshold, g_freq, b_volume, isMirrored } = this;
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Очистка холста
+        ctx.save();
+        if (isMirrored) {
+            ctx.scale(-1, 1); // Отразить по горизонтали
+            ctx.translate(-canvas.width, 0); // Переместить обратно в видимую область
+        }
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        ctx.restore();
         const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
         const locs_freq = getLocationsWithColor(imgData, { r: 0, g: g_freq, b: 0 }, threshold); // Частота

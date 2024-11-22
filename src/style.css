@@ -53,6 +53,10 @@ body {
     border-radius: 20px;
 }
 
+#myCanvas.mirrored {
+    transform: scaleY(-1);
+}
+
 /* Кнопка настроек */
 .settings-button {
     position: absolute;

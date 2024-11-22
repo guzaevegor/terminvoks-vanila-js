@@ -20,7 +20,7 @@
 </div>
 
 <button class="settings-button" onclick="toggleSettings()">⚙️</button>
-<button class="mute-button" onclick="toggleMute()">🔊</button>
+<button class="mute-button" onclick="toggleMute()">🔇</button>
 
 
 <div class="settings-panel" id="settingsPanel">
@@ -33,6 +33,9 @@
     <label for="blueThreshold">Threshold for blue:</label>
     <input type="range" id="blueThreshold" min="0" max="255" value="255" oninput="updateBlueThreshold(this.value)">
     <span id="blueThresholdValue">255</span>
+    <br>
+    <label for="mirrorToggle">Mirror Video:</label>
+    <input type="checkbox" id="mirrorToggle" onchange="toggleMirror(this.checked)">
 </div>
 
 <script>
@@ -76,6 +79,13 @@
         document.getElementById("blueThresholdValue").textContent = value;
         if (window.effect) {
             window.effect.setBlueComponent(parseInt(value));
+        }
+    }
+
+    // Функция переключения зеркальности
+    function toggleMirror(isMirrored) {
+        if (window.effect) {
+            window.effect.setMirror(isMirrored);
         }
     }
 </script>
