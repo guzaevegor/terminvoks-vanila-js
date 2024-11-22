@@ -10,9 +10,10 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    background-color: black;
-    color: white;
-    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
     height: 100vh;
     overflow: hidden;
 }
@@ -25,12 +26,12 @@ body {
 
 .title {
     font-size: 2.5rem;
-    color: #00ff00;
+    color: whitesmoke;
 }
 
 .slogan {
     font-size: 1.2rem;
-    color: #00ccff;
+    color: whitesmoke;
     margin-top: 5px;
 }
 
@@ -41,13 +42,15 @@ body {
     align-items: center;
     width: 70%;
     height: 80%;
+    border-radius: 8px;
 }
 
 #myCanvas {
     width: 70%;
     height: auto; /* Автоадаптация по высоте */
-    border: 2px solid #00ccff;
+    border: 2px solid whitesmoke;
     background-color: #000;
+    border-radius: 20px;
 }
 
 /* Кнопка настроек */
@@ -55,18 +58,20 @@ body {
     position: absolute;
     top: 20px;
     right: 20px;
-    background-color: #00ccff;
+    background-color: whitesmoke;
     border: none;
     color: black;
     padding: 10px 10px;
-    border-radius: 50%;
+    border-radius: 20px;
     font-size: 1.5rem;
     cursor: pointer;
-    transition: transform 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .settings-button:hover {
-    transform: rotate(90deg);
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Панель настроек (шторка) */
@@ -77,10 +82,11 @@ body {
     width: 300px;
     height: 100%;
     background-color: #222;
-    color: white;
+    color: whitesmoke;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
     transition: right 0.9s;
     padding: 20px;
+    border-radius: 8px 0 0 8px;
 }
 
 .settings-panel.open {
@@ -89,7 +95,7 @@ body {
 
 .settings-panel h2 {
     margin-bottom: 10px;
-    color: #00ff00;
+    color: whitesmoke;
 }
 
 .settings-panel p {
@@ -103,24 +109,26 @@ body {
 }
 
 #thresholdValue {
-    color: #00ff00;
+    color: whitesmoke;
     font-weight: bold;
 }
 
 .mute-button {
     position: absolute;
     top: 20px;
-    right: 70px; /* Смещена рядом с кнопкой настроек */
-    background-color: #00ccff;
+    right: 140px; /* Смещена рядом с кнопкой настроек */
+    background-color: whitesmoke;
     border: none;
     color: black;
     padding: 10px 10px;
-    border-radius: 50%;
+    border-radius: 20px;
     font-size: 1.5rem;
     cursor: pointer;
-    transition: transform 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .mute-button:hover {
     transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
