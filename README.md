@@ -238,6 +238,6 @@ This project is licensed under the Non-copyright License.
 
 ## ✨ Credits
 
-- Developed by **[Your Name]**.
+- Developed by **[Guzaev Egor, ChatGpt, Youtube]**.
 - Inspired by theremin instruments and creative coding.
 
