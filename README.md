@@ -22,7 +22,7 @@ Theremin App is an interactive web application that uses your camera to detect s
 ### Project Structure
 
 - **`index.html`**: Main HTML structure, including the canvas for the video feed and settings panel.
-- **`style.css`**: (Not provided in this example) Manages the layout and design of the application.
+- **`style.css`**: Manages the layout and design of the application.
 - **`effect.js`**: Core logic for the theremin effect, including sound generation and video processing.
 - **`utils.js`**: Utility functions for image processing and calculations.
 
